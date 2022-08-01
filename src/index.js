@@ -1,33 +1,50 @@
 import React from 'react';
+import {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  createTheme,
+  ThemeProvider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from '@mui/material';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import * as Redirect from 'react-router-dom';
+
 
 const theme = createTheme();
 
-class NumberForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ""
-    };
+function SimpleDialog(props) {
+  const {open, onClose} = props;
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleCloseHelper = () => {
+    onClose(false);
+  };
 
-  handleSubmit(event) {
+  return(
+    <Dialog open={open} onClose={handleCloseHelper}>
+      <DialogTitle>Easy WhatsApp</DialogTitle>
+      <DialogContent>Use this tool to easily start a WhatsApp conversation without the need to save recipient phone number into your contacts</DialogContent>
+    </Dialog>
+
+  )
+}
+
+function NumberForm() {
+  const [open, setOpen] = useState(false);
+
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const whatsappNum = data.get('number');
@@ -35,7 +52,15 @@ class NumberForm extends React.Component {
     window.location.replace(link);
   };
 
-  render() {
+  const handleOpenHelper = () => {
+    setOpen(true);
+  };
+
+  const handleCloseHelper = () => {
+    setOpen(false);
+  };
+
+  // render() {
     return (
       <ThemeProvider theme={theme}>
         <Container component='main' maxWidth='xs'>
@@ -46,34 +71,46 @@ class NumberForm extends React.Component {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              textAlign: 'center',
             }}
           >
-            <Typography component="h1" variant="h5">
-              Enter WhatsApp enabled number
+            <Avatar sx={{ m:1, bgcolor: '#4BC858'}}>
+              <WhatsAppIcon />
+            </Avatar>
+            <Typography component='h1' variant='h5'>
+              Start a conversation with a WhatsApp number
             </Typography>
-            <Box component="form" onSubmit={this.handleSubmit} noValidate sx={{ mt:1 }}>
+            <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt:1 }}>
               <TextField
-                margin="normal"
+                margin='normal'
                 fullWidth
-                id="number"
-                label="Enter Number Here"
-                name="number"
+                id='number'
+                label='Enter Number Here'
+                name='number'
                 autoFocus
               />
               <Button
-                type="submit"
+                type='submit'
                 fullWidth
-                variant="contained"
+                variant='contained'
                 sx={{ mt: 3, mb: 2 }}
               >
                 Submit
               </Button>
+              <Button variant='text' onClick={handleOpenHelper}>
+                Help ?
+              </Button>
+              <SimpleDialog
+                open={open}
+                onClose={handleCloseHelper}
+              />
+
             </Box>
           </Box>
         </Container>
       </ThemeProvider>
     )
-  }
+  // }
 }
 
 

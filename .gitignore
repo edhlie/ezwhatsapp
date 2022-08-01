@@ -6,7 +6,7 @@
 .pnp.js
 
 # misc files
-.sample.js
+/ignore
 
 # production
 /build
@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# WIP
+/src/server.js
