@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
@@ -7,10 +7,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
-  Link,
-  Grid,
   Box,
   Typography,
   Container,
@@ -21,6 +17,11 @@ import {
   DialogContent,
 } from '@mui/material';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import callCodes from 'country-calling-code';
+import { searchCallCode } from './countrycode.js';
+import Copyright from './footer.js';
+
+
 
 
 const theme = createTheme();
@@ -35,7 +36,9 @@ function SimpleDialog(props) {
   return(
     <Dialog open={open} onClose={handleCloseHelper}>
       <DialogTitle>Easy WhatsApp</DialogTitle>
-      <DialogContent>Use this tool to easily start a WhatsApp conversation without the need to save recipient phone number into your contacts</DialogContent>
+      <DialogContent>
+        Use this tool to easily start a WhatsApp conversation without the need to save recipient phone number into your contacts.
+      </DialogContent>
     </Dialog>
 
   )
@@ -43,13 +46,57 @@ function SimpleDialog(props) {
 
 function NumberForm() {
   const [open, setOpen] = useState(false);
+  const [formError, setFormError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState({
+    value: ''
+  })
+  const [getInput, setInput] = useState({
+    value: ''
+  });
 
   const handleSubmit = (event) => {
+    let errFlag = false;
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const whatsappNum = data.get('number');
-    const link = 'https://api.whatsapp.com/send?phone='+data.get('number');
-    window.location.replace(link);
+    if(!whatsappNum) {
+      errFlag = true;
+      setFormError(true);
+      setErrorMsg({
+        value: 'Field is empty'
+      })
+    }
+    else if(containsForbiddenChars(whatsappNum)){
+      errFlag = true;
+      setFormError(true);
+      setErrorMsg({
+        value: 'Contains forbidden characters. Please enter numbers only'
+      })
+    }
+
+    if(!errFlag){
+      const link = 'https://api.whatsapp.com/send?phone='+whatsappNum;
+      console.log('i am redirrected');
+      // window.location.replace(link);
+    }
+  };
+
+  const containsForbiddenChars = (str) => {
+    if(/^\+?/.test(str)){
+      console.log(str.substr(1));
+      str = str.substr(1);
+    }
+    const forbiddenChars = /[`+!@#$%^&*()_\-=+\[\]{};':"\\|,.<>\/?~a-zA-Z]/;
+    return forbiddenChars.test(str);
+  }
+
+  const handleOnChange = (field, event) => {
+    resetFormError();
+    console.log(getInput.value);
+    const { value } = event.target;
+    setInput({
+      value: value
+    });
   };
 
   const handleOpenHelper = () => {
@@ -60,7 +107,13 @@ function NumberForm() {
     setOpen(false);
   };
 
-  // render() {
+  const resetFormError = (event) => {
+    setFormError(false);
+    setErrorMsg({
+      value: ''
+    })
+  }
+
     return (
       <ThemeProvider theme={theme}>
         <Container component='main' maxWidth='xs'>
@@ -80,20 +133,24 @@ function NumberForm() {
             <Typography component='h1' variant='h5'>
               Start a conversation with a WhatsApp number
             </Typography>
-            <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt:1 }}>
+            <Box component='form' onSubmit={handleSubmit} sx={{ mt:1 }}>
               <TextField
+                onChange={(event) => handleOnChange('input', event)}
                 margin='normal'
                 fullWidth
                 id='number'
-                label='Enter Number Here'
+                label='Enter Number Here (include country code)'
                 name='number'
+                placeholder='example: 62812312341234'
+                error={formError}
+                helperText={formError ? errorMsg.value : ''}
                 autoFocus
               />
               <Button
+                sx={{ mt:1, mb: 2 }}
                 type='submit'
                 fullWidth
                 variant='contained'
-                sx={{ mt: 3, mb: 2 }}
               >
                 Submit
               </Button>
@@ -104,17 +161,19 @@ function NumberForm() {
                 open={open}
                 onClose={handleCloseHelper}
               />
-
             </Box>
           </Box>
+          <Copyright sx={{mt: 15}}/>
         </Container>
       </ThemeProvider>
     )
-  // }
 }
+// TODO: Add country code field
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <NumberForm />
 );
+
+// console.log(callCodes);
