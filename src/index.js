@@ -76,8 +76,7 @@ function NumberForm() {
 
     if(!errFlag){
       const link = 'https://api.whatsapp.com/send?phone='+whatsappNum;
-      console.log('i am redirrected');
-      // window.location.replace(link);
+      window.location.replace(link);
     }
   };
 
