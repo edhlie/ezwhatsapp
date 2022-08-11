@@ -17,8 +17,8 @@ import {
   DialogContent,
 } from '@mui/material';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import callCodes from 'country-calling-code';
-import { searchCallCode } from './countrycode.js';
+// import callCodes from 'country-calling-code';
+// import { searchCallCode } from './countrycode.js';
 import Copyright from './footer.js';
 
 
