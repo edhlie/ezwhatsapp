@@ -58,7 +58,7 @@ function NumberForm() {
     let errFlag = false;
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const whatsappNum = data.get('number');
+    let whatsappNum = data.get('number');
     if(!whatsappNum) {
       errFlag = true;
       setFormError(true);
@@ -74,6 +74,10 @@ function NumberForm() {
       })
     }
 
+    if(whatsappNum.includes('+')){
+      whatsappNum = whatsappNum.substr(1);
+    }
+
     if(!errFlag){
       const link = 'https://api.whatsapp.com/send?phone='+whatsappNum;
       window.location.replace(link);
@@ -82,10 +86,10 @@ function NumberForm() {
 
   const containsForbiddenChars = (str) => {
     if(/^\+?/.test(str)){
-      console.log(str.substr(1));
       str = str.substr(1);
     }
     const forbiddenChars = /[`+!@#$%^&*()_\-=+\[\]{};':"\\|,.<>\/?~a-zA-Z]/;
+
     return forbiddenChars.test(str);
   }
 
