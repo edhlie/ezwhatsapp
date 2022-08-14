@@ -59,7 +59,7 @@ function SimpleDialog(props) {
         <Box sx={{ width: '100%'}}>
           <List>
             <ListItem>
-              <ListItemButton href='https://bit.ly/3Al9IW1'>
+              <ListItemButton target='_blank' rel='noopener' href='https://bit.ly/3Al9IW1'>
                 <ListItemIcon>
                   <AndroidIcon/>
                 </ListItemIcon>
@@ -67,7 +67,7 @@ function SimpleDialog(props) {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton href='https://apple.co/3Po99io'>
+              <ListItemButton target='_blank' rel='noopener' href='https://apple.co/3Po99io'>
                 <ListItemIcon>
                   <AppleIcon/>
                 </ListItemIcon>
