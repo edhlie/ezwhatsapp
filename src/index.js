@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
@@ -15,8 +15,20 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+// import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+// import AndroidIcon from '@mui/icons-material/Android';
+// import AppleIcon from '@mui/icons-material/Apple';
+import {
+  WhatsApp as WhatsAppIcon,
+  Android as AndroidIcon,
+  Apple as AppleIcon,
+} from '@mui/icons-material';
 // import callCodes from 'country-calling-code';
 // import { searchCallCode } from './countrycode.js';
 import Copyright from './footer.js';
@@ -37,7 +49,60 @@ function SimpleDialog(props) {
     <Dialog open={open} onClose={handleCloseHelper}>
       <DialogTitle>Easy WhatsApp</DialogTitle>
       <DialogContent>
-        Use this tool to easily start a WhatsApp conversation without the need to save recipient phone number into your contacts.
+        <Typography gutterBottom sx={{mb:1}}>
+          Use this tool to easily start a WhatsApp conversation without the need to save recipient phone number into your contacts.
+        </Typography>
+        <Typography gutterBottom sx={{mb:1}}>
+          Easily access this website as a bookmark on your mobile device's home screen by following these instructions:
+        </Typography>
+        <Typography>
+        <Box sx={{ width: '100%'}}>
+          <List>
+            <ListItem>
+              <ListItemButton href='https://bit.ly/3Al9IW1'>
+                <ListItemIcon>
+                  <AndroidIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Browsers on Android" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton href='https://apple.co/3Po99io'>
+                <ListItemIcon>
+                  <AppleIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Safari on iOS" />
+              </ListItemButton>
+            </ListItem>
+
+          </List>
+        </Box>
+
+
+              {/*<Link target='_blank' rel='noopener' href='https://bit.ly/3Al9IW1'>
+                <ListItemIcon>
+                  <AndroidIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                  Browsers on Android
+                </ListItemText>
+              </Link>
+
+            </ListItem>
+
+            <ListItem>
+
+              <Link target='_blank' rel='noopener' href='https://apple.co/3Po99io'>
+                <ListItemIcon>
+                  <AppleIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                  Safari on iOS
+                </ListItemText>
+              </Link>*/}
+
+
+        </Typography>
       </DialogContent>
     </Dialog>
 
