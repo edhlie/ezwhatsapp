@@ -32,13 +32,14 @@ import {
 // import callCodes from 'country-calling-code';
 // import { searchCallCode } from './countrycode.js';
 import Copyright from './footer.js';
+import Disclaimer from './disclaimer.js';
 
 
 
 
 const theme = createTheme();
 
-function SimpleDialog(props) {
+function HelpDialog(props) {
   const {open, onClose} = props;
 
   const handleCloseHelper = () => {
@@ -77,31 +78,6 @@ function SimpleDialog(props) {
 
           </List>
         </Box>
-
-
-              {/*<Link target='_blank' rel='noopener' href='https://bit.ly/3Al9IW1'>
-                <ListItemIcon>
-                  <AndroidIcon/>
-                </ListItemIcon>
-                <ListItemText>
-                  Browsers on Android
-                </ListItemText>
-              </Link>
-
-            </ListItem>
-
-            <ListItem>
-
-              <Link target='_blank' rel='noopener' href='https://apple.co/3Po99io'>
-                <ListItemIcon>
-                  <AppleIcon/>
-                </ListItemIcon>
-                <ListItemText>
-                  Safari on iOS
-                </ListItemText>
-              </Link>*/}
-
-
         </Typography>
       </DialogContent>
     </Dialog>
@@ -110,7 +86,8 @@ function SimpleDialog(props) {
 }
 
 function NumberForm() {
-  const [open, setOpen] = useState(false);
+  const [openHelper, setOpenHelper] = useState(false);
+  const [openDisclaimer, setOpenDisclaimer] = useState(false);
   const [formError, setFormError] = useState(false);
   const [errorMsg, setErrorMsg] = useState({
     value: ''
@@ -160,7 +137,6 @@ function NumberForm() {
 
   const handleOnChange = (field, event) => {
     resetFormError();
-    console.log(getInput.value);
     const { value } = event.target;
     setInput({
       value: value
@@ -168,11 +144,19 @@ function NumberForm() {
   };
 
   const handleOpenHelper = () => {
-    setOpen(true);
+    setOpenHelper(true);
   };
 
   const handleCloseHelper = () => {
-    setOpen(false);
+    setOpenHelper(false);
+  };
+
+  const handleOpenDisclaimer = () => {
+    setOpenDisclaimer(true);
+  };
+
+  const handleCloseDisclaimer = () => {
+    setOpenDisclaimer(false);
   };
 
   const resetFormError = (event) => {
@@ -180,7 +164,7 @@ function NumberForm() {
     setErrorMsg({
       value: ''
     })
-  }
+  };
 
     return (
       <ThemeProvider theme={theme}>
@@ -225,13 +209,30 @@ function NumberForm() {
               <Button variant='text' onClick={handleOpenHelper}>
                 Help ?
               </Button>
-              <SimpleDialog
-                open={open}
+              <HelpDialog
+                open={openHelper}
                 onClose={handleCloseHelper}
               />
             </Box>
           </Box>
-          <Copyright sx={{mt: 15}}/>
+          <Copyright sx={{mt: 18}}/>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
+              mt: 1
+            }}
+          >
+            <Button sx={{color:'#000', fontSize:'10px', fontWeight:'400', textTransform:'none'}} size='small' variant='text' onClick={handleOpenDisclaimer}>
+              Disclaimer, Terms of Use and Privacy Policy
+            </Button>
+            <Disclaimer
+              open={openDisclaimer}
+              onClose={handleCloseDisclaimer}
+            />
+          </Box>
         </Container>
       </ThemeProvider>
     )

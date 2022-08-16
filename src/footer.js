@@ -20,6 +20,11 @@ export default function Copyright(props) {
           <GitHubIcon sx={{m:1, fontSize:'35px'}}/>
         </Link>
       </Typography>
+      <Typography sx={{pt:3, fontSize:'10px', textAlign:'center'}}>
+        <Link color='#000' underline='none' target='_blank' rel='noopener' href="https://www.flaticon.com/free-icons/whatsapp" title="whatsapp icons">
+          Whatsapp favicon created by Freepik - Flaticon
+        </Link>
+      </Typography>
     </footer>
   );
 }
