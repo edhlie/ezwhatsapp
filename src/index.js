@@ -54,13 +54,13 @@ function HelpDialog(props) {
           Use this app to easily start a WhatsApp conversation without the need to save recipient phone number into your contacts.
         </Typography>
         <Typography gutterBottom sx={{mb:1}}>
-          Easily access this website as a bookmark on your mobile device's home screen by following these instructions:
+          Easily access this app by installing it to your mobile device's home screen:
         </Typography>
         <Typography>
         <Box sx={{ width: '100%'}}>
           <List>
             <ListItem>
-              <ListItemButton target='_blank' rel='noopener' href='https://bit.ly/3Al9IW1'>
+              <ListItemButton href='https://bit.ly/3Al9IW1'>
                 <ListItemIcon>
                   <AndroidIcon/>
                 </ListItemIcon>
@@ -68,7 +68,7 @@ function HelpDialog(props) {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton target='_blank' rel='noopener' href='https://apple.co/3Po99io'>
+              <ListItemButton href='https://apple.co/3Po99io'>
                 <ListItemIcon>
                   <AppleIcon/>
                 </ListItemIcon>
