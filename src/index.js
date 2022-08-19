@@ -33,7 +33,7 @@ import {
 // import { searchCallCode } from './countrycode.js';
 import Copyright from './footer.js';
 import Disclaimer from './disclaimer.js';
-
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 
 
@@ -51,7 +51,7 @@ function HelpDialog(props) {
       <DialogTitle>Easy WhatsApp</DialogTitle>
       <DialogContent>
         <Typography gutterBottom sx={{mb:1}}>
-          Use this tool to easily start a WhatsApp conversation without the need to save recipient phone number into your contacts.
+          Use this app to easily start a WhatsApp conversation without the need to save recipient phone number into your contacts.
         </Typography>
         <Typography gutterBottom sx={{mb:1}}>
           Easily access this website as a bookmark on your mobile device's home screen by following these instructions:
@@ -245,4 +245,13 @@ root.render(
   <NumberForm />
 );
 
+serviceWorkerRegistration.register({
+  onUpdate: registration => {
+    alert('New version available! Please update now.');
+    if (registration && registration.waiting) {
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+    }
+    window.location.reload();
+  }
+});
 // console.log(callCodes);
