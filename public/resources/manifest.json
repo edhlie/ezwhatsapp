@@ -1,6 +1,7 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Easy WhatsApp",
+    "short_name": "Easy WA",
+    "description": "Easily start a new WhatsApp conversation",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
@@ -13,6 +14,7 @@
             "type": "image/png"
         }
     ],
+    "start_url": "/",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
     "display": "standalone"

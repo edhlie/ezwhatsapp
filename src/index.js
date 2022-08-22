@@ -12,78 +12,20 @@ import {
   Container,
   createTheme,
   ThemeProvider,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
 } from '@mui/material';
-// import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-// import AndroidIcon from '@mui/icons-material/Android';
-// import AppleIcon from '@mui/icons-material/Apple';
 import {
   WhatsApp as WhatsAppIcon,
-  Android as AndroidIcon,
-  Apple as AppleIcon,
 } from '@mui/icons-material';
 // import callCodes from 'country-calling-code';
 // import { searchCallCode } from './countrycode.js';
 import Copyright from './footer.js';
+import HelpDialog from './helpDialog.js';
 import Disclaimer from './disclaimer.js';
-
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 
 
 const theme = createTheme();
-
-function HelpDialog(props) {
-  const {open, onClose} = props;
-
-  const handleCloseHelper = () => {
-    onClose(false);
-  };
-
-  return(
-    <Dialog open={open} onClose={handleCloseHelper}>
-      <DialogTitle>Easy WhatsApp</DialogTitle>
-      <DialogContent>
-        <Typography gutterBottom sx={{mb:1}}>
-          Use this tool to easily start a WhatsApp conversation without the need to save recipient phone number into your contacts.
-        </Typography>
-        <Typography gutterBottom sx={{mb:1}}>
-          Easily access this website as a bookmark on your mobile device's home screen by following these instructions:
-        </Typography>
-        <Typography>
-        <Box sx={{ width: '100%'}}>
-          <List>
-            <ListItem>
-              <ListItemButton target='_blank' rel='noopener' href='https://bit.ly/3Al9IW1'>
-                <ListItemIcon>
-                  <AndroidIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Browsers on Android" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton target='_blank' rel='noopener' href='https://apple.co/3Po99io'>
-                <ListItemIcon>
-                  <AppleIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Safari on iOS" />
-              </ListItemButton>
-            </ListItem>
-
-          </List>
-        </Box>
-        </Typography>
-      </DialogContent>
-    </Dialog>
-
-  )
-}
 
 function NumberForm() {
   const [openHelper, setOpenHelper] = useState(false);
@@ -116,8 +58,15 @@ function NumberForm() {
       })
     }
 
+    // Check for leading +
     if(whatsappNum.includes('+')){
       whatsappNum = whatsappNum.substr(1);
+    }
+
+    // IDN Only! If input has leading 0, remove 0 and prepend 62
+    // e.g. 08121234123 -> 628121234123
+    if(whatsappNum.substr(0,1) === '0'){
+      whatsappNum = '62' + whatsappNum.substr(1);
     }
 
     if(!errFlag){
@@ -191,11 +140,11 @@ function NumberForm() {
                 margin='normal'
                 fullWidth
                 id='number'
-                label='Enter Number Here (include country code)'
+                label='Enter Number Here'
                 name='number'
                 placeholder='example: 62812312341234'
                 error={formError}
-                helperText={formError ? errorMsg.value : ''}
+                helperText={formError ? errorMsg.value : 'Please include country code. Indonesian numbers can start with leading 0 (e.g 0812...)'}
                 autoFocus
               />
               <Button
@@ -245,4 +194,13 @@ root.render(
   <NumberForm />
 );
 
+serviceWorkerRegistration.register({
+  onUpdate: registration => {
+    alert('New version available! Please update now.');
+    if (registration && registration.waiting) {
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+    }
+    window.location.reload();
+  }
+});
 // console.log(callCodes);
