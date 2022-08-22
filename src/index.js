@@ -12,19 +12,9 @@ import {
   Container,
   createTheme,
   ThemeProvider,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
 } from '@mui/material';
 import {
   WhatsApp as WhatsAppIcon,
-  Android as AndroidIcon,
-  Apple as AppleIcon,
 } from '@mui/icons-material';
 // import callCodes from 'country-calling-code';
 // import { searchCallCode } from './countrycode.js';

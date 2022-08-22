@@ -1,16 +1,10 @@
 import {
-  Avatar,
   Box,
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
   Typography,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
 } from '@mui/material';
 import {
   HelpCenter as HelpCenterIcon,
