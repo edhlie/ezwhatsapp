@@ -1,15 +1,15 @@
 {
-    "name": "Easy WhatsApp",
-    "short_name": "Easy WA",
-    "description": "Easily start a new WhatsApp conversation",
+    "name": "Text Away",
+    "short_name": "Text Away",
+    "description": "Easy WhatsApp texting without contacts",
     "icons": [
         {
-            "src": "android-chrome-192x192.png",
+            "src": "android-chrome-192x192.png?v=2",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "android-chrome-512x512.png",
+            "src": "android-chrome-512x512.png?v=2",
             "sizes": "512x512",
             "type": "image/png"
         }

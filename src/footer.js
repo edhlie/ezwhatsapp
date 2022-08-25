@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  Button,
+  Box,
   Link,
   Typography,
 } from '@mui/material';
@@ -7,9 +9,32 @@ import {
   GitHub as GitHubIcon,
   LinkedIn as LinkedInIcon,
 } from '@mui/icons-material';
+import Disclaimer from './disclaimer.js';
+
 
 
 export default function Copyright(props) {
+  const [openDisclaimer, setOpenDisclaimer] = useState(false);
+
+  const handleOpenDisclaimer = () => {
+    setOpenDisclaimer(true);
+  };
+
+  const handleCloseDisclaimer = () => {
+    setOpenDisclaimer(false);
+  };
+
+  const yearStart = 2022;
+  const yearEnd = new Date().getFullYear();
+  console.log(typeof yearEnd);
+  let yearString = '';
+  if (yearEnd === yearStart) {
+    yearString = yearStart
+  }
+  else {
+    yearString = yearStart + ' - ' + yearEnd;
+  }
+
   return (
     <footer>
       <Typography variant='body2' color='text.secondary' align='center' {...props}>
@@ -20,10 +45,25 @@ export default function Copyright(props) {
           <GitHubIcon sx={{m:1, fontSize:'35px'}}/>
         </Link>
       </Typography>
-      <Typography sx={{pt:3, fontSize:'10px', textAlign:'center'}}>
-        <Link color='#000' underline='none' href="https://www.flaticon.com/free-icons/whatsapp" title="whatsapp icons">
-          Whatsapp favicon created by Freepik - Flaticon
-        </Link>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          mt: 1
+        }}
+      >
+        <Button sx={{color:'#000', fontSize:'10px', fontWeight:'400', textTransform:'none'}} size='small' variant='text' onClick={handleOpenDisclaimer}>
+          Disclaimer, Terms of Use and Privacy Policy
+        </Button>
+        <Disclaimer
+          open={openDisclaimer}
+          onClose={handleCloseDisclaimer}
+        />
+      </Box>
+      <Typography sx={{textAlign: 'center', fontSize: 11}}>
+        © {yearString} Textaway.app
       </Typography>
     </footer>
   );

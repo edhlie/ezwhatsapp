@@ -1,4 +1,5 @@
-# Easy WhatsApp
+# Text Away
+Easy WhatsApp texting without the need to save contact
 
 ## General Info
 A simple Progressive Web App (PWA) utilizing WhatsApp's URL API to start a WhatsApp text conversation without the need to save the recipient's phone number into contacts.

@@ -22,7 +22,7 @@ export default function HelpDialog(props) {
       <DialogTitle>Easy WhatsApp</DialogTitle>
       <DialogContent>
         <Typography gutterBottom sx={{mb:1}}>
-          Easy WhatsApp is a Progressive Web App (PWA) that allows you to start a WhatsApp conversation without the need to save recipient phone number into your contacts.
+          Text Away is a Progressive Web App (PWA) that allows you to start a WhatsApp conversation without the need to save recipient phone number into your contacts.
         </Typography>
         <Typography gutterBottom sx={{mb:1}}>
           Easily access this app by installing it to your mobile device's home screen.
