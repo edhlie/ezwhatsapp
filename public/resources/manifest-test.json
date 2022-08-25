@@ -1,7 +1,7 @@
 {
-    "name": "TEST-Easy WhatsApp",
-    "short_name": "TEST EZ WA",
-    "description": "Easy WA debug version",
+    "name": "TEST-Text Away",
+    "short_name": "TEST Text Away",
+    "description": "Text Away debug version",
     "icons": [
         {
             "src": "android-chrome-192x192.png",

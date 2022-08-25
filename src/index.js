@@ -3,7 +3,6 @@ import {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
-  Avatar,
   Button,
   CssBaseline,
   TextField,
@@ -13,14 +12,10 @@ import {
   createTheme,
   ThemeProvider,
 } from '@mui/material';
-import {
-  WhatsApp as WhatsAppIcon,
-} from '@mui/icons-material';
 // import callCodes from 'country-calling-code';
 // import { searchCallCode } from './countrycode.js';
 import Copyright from './footer.js';
 import HelpDialog from './helpDialog.js';
-import Disclaimer from './disclaimer.js';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 
@@ -29,7 +24,6 @@ const theme = createTheme();
 
 function NumberForm() {
   const [openHelper, setOpenHelper] = useState(false);
-  const [openDisclaimer, setOpenDisclaimer] = useState(false);
   const [formError, setFormError] = useState(false);
   const [errorMsg, setErrorMsg] = useState({
     value: ''
@@ -100,14 +94,6 @@ function NumberForm() {
     setOpenHelper(false);
   };
 
-  const handleOpenDisclaimer = () => {
-    setOpenDisclaimer(true);
-  };
-
-  const handleCloseDisclaimer = () => {
-    setOpenDisclaimer(false);
-  };
-
   const resetFormError = (event) => {
     setFormError(false);
     setErrorMsg({
@@ -117,21 +103,31 @@ function NumberForm() {
 
     return (
       <ThemeProvider theme={theme}>
-        <Container component='main' maxWidth='xs'>
+        <Container component='main' maxWidth='xs'
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center',
+            minHeight: '100vh'
+          }}
+        >
           <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              textAlign: 'center',
-            }}
-          >
-            <Avatar sx={{ m:1, bgcolor: '#4BC858'}}>
-              <WhatsAppIcon />
-            </Avatar>
-            <Typography component='h1' variant='h5'>
+          <Box sx={{mt: 4}}>
+            <Box
+              component='img'
+              sx={{
+                width: 40,
+                height: 40,
+                m: 1
+              }}
+              alt='Text Away'
+              src='/resources/android-chrome-192x192.png'
+            />
+            <Typography component='h1' variant='h4'>
+              Text Away
+            </Typography>
+            <Typography component='h4' variant='p'>
               Start a conversation with a WhatsApp number
             </Typography>
             <Box component='form' onSubmit={handleSubmit} sx={{ mt:1 }}>
@@ -140,11 +136,11 @@ function NumberForm() {
                 margin='normal'
                 fullWidth
                 id='number'
-                label='Enter Number Here'
+                label='Enter Number Here (Include country code)'
                 name='number'
                 placeholder='example: 62812312341234'
                 error={formError}
-                helperText={formError ? errorMsg.value : 'Please include country code. Indonesian numbers can start with leading 0 (e.g 0812...)'}
+                helperText={formError ? errorMsg.value : '*Indonesian numbers can start with leading 0 (e.g 0812...)'}
                 autoFocus
               />
               <Button
@@ -164,23 +160,8 @@ function NumberForm() {
               />
             </Box>
           </Box>
-          <Copyright sx={{mt: 18}}/>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              textAlign: 'center',
-              mt: 1
-            }}
-          >
-            <Button sx={{color:'#000', fontSize:'10px', fontWeight:'400', textTransform:'none'}} size='small' variant='text' onClick={handleOpenDisclaimer}>
-              Disclaimer, Terms of Use and Privacy Policy
-            </Button>
-            <Disclaimer
-              open={openDisclaimer}
-              onClose={handleCloseDisclaimer}
-            />
+          <Box sx={{height: 200, mt: 'auto'}}>
+            <Copyright />
           </Box>
         </Container>
       </ThemeProvider>
