@@ -26,7 +26,6 @@ export default function Copyright(props) {
 
   const yearStart = 2022;
   const yearEnd = new Date().getFullYear();
-  console.log(typeof yearEnd);
   let yearString = '';
   if (yearEnd === yearStart) {
     yearString = yearStart
